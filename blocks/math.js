@@ -323,6 +323,7 @@ Blockly.Blocks['math_change'] = {
           "check": "Number"
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "colour": Blockly.Blocks.variables.HUE,

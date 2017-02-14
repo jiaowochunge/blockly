@@ -189,7 +189,11 @@ Blockly.RenderedConnection.prototype.closest = function(maxLimit, dx, dy) {
 Blockly.RenderedConnection.prototype.highlight = function() {
   var steps;
   if (this.type == Blockly.INPUT_VALUE || this.type == Blockly.OUTPUT_VALUE) {
-    steps = 'm 0,0 ' + Blockly.BlockSvg.TAB_PATH_DOWN + ' v 5';
+    if (this.check_ && this.check_.indexOf('Boolean') != -1) {
+      steps = 'm ' + Blockly.BlockSvg.OUTPUT_SHAPE_WIDTH + ' 0' + Blockly.BlockSvg.TAB_PATH_DOWN_ANGEL;
+    } else {
+      steps = 'm ' + Blockly.BlockSvg.OUTPUT_SHAPE_WIDTH + ' 0' + Blockly.BlockSvg.TAB_PATH_DOWN_ARC;
+    }
   } else {
     steps = 'm -20,0 h 5 ' + Blockly.BlockSvg.NOTCH_PATH_LEFT + ' h 5';
   }
