@@ -287,6 +287,50 @@ Blockly.Toolbox.prototype.populate_ = function(newTree) {
   return openNode;
 };
 
+Blockly.Toolbox.prototype.generateBellTreeLabel = function (name) {
+  // only care about those block labels
+  // which added by bell
+  var bellCats = [
+    'Flow',
+    'Motion',
+    'Light',
+    'Sensor',
+    'Logic',
+    'Math',
+    'Variables',
+    'Functions'
+  ];
+  var isBellLabel = false;
+  // is this name from bell?
+  for (var i = 0, cat; cat = bellCats[i]; i++) {
+    if (!cat) break;
+    if (cat == name) {
+      isBellLabel = true;
+      break;
+    }
+  }
+  if (isBellLabel) {
+    var path = 'images/blockly/' + name + '_B.png';
+    var img = goog.html.SafeHtml.create('img', {
+      'src': path,
+      'style': {
+        'position': 'absolute',
+        'width': '120px',
+        'height': '63px',
+      }
+    });
+    var mask = goog.html.SafeHtml.create('span', {
+      'class': 'blocklyTreeRowBell'
+    });
+    var container = goog.html.SafeHtml.create('span', null,
+      [ mask, img ]
+    );
+    return container;
+  } else {
+    return name;
+  }
+};
+
 /**
  * Sync trees of the toolbox.
  * @param {!Node} treeIn DOM tree of blocks.
@@ -305,7 +349,7 @@ Blockly.Toolbox.prototype.syncTrees_ = function(treeIn, treeOut, pathToMedia) {
     }
     switch (childIn.tagName.toUpperCase()) {
       case 'CATEGORY':
-        var childOut = this.tree_.createNode(childIn.getAttribute('name'));
+        var childOut = this.tree_.createNode(this.generateBellTreeLabel(childIn.getAttribute('name')));
         childOut.blocks = [];
         treeOut.add(childOut);
         var custom = childIn.getAttribute('custom');
@@ -386,7 +430,7 @@ Blockly.Toolbox.prototype.addColour_ = function(opt_tree) {
     var element = child.getRowElement();
     if (element) {
       if (this.hasColours_) {
-        var border = '8px solid ' + (child.hexColour || '#ddd');
+        var border = '0px solid ' + (child.hexColour || '#ddd');
       } else {
         var border = 'none';
       }
@@ -525,11 +569,27 @@ Blockly.Toolbox.TreeControl.prototype.setSelectedItem = function(node) {
     return;
   }
   if (toolbox.lastCategory_) {
-    toolbox.lastCategory_.getRowElement().style.backgroundColor = '';
+    var row = toolbox.lastCategory_.getRowElement();
+    row.style.backgroundColor = '';
+    var img = row.querySelector('img');
+    if (img) {
+      var srcBefore = img.src;
+      img.src = srcBefore.substring(0, srcBefore.length - 6) + '_B.png';
+      var mask = img.parentNode.querySelector('span');
+      mask.style.backgroundColor = '';
+    }
   }
   if (node) {
     var hexColour = node.hexColour || '#57e';
-    node.getRowElement().style.backgroundColor = hexColour;
+    var row = node.getRowElement();
+    // row.style.backgroundColor = hexColour;
+    var img = row.querySelector('img');
+    if (img) {
+      var srcBefore = img.src;
+      img.src = srcBefore.substring(0, srcBefore.length - 6) + '_M.png';
+      var mask = img.parentNode.querySelector('span');
+      mask.style.backgroundColor = 'rgb(30, 36, 50)';
+    }
     // Add colours to child nodes which may have been collapsed and thus
     // not rendered.
     toolbox.addColour_(node);

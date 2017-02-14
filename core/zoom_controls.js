@@ -162,6 +162,13 @@ Blockly.ZoomControls.prototype.createDom = function() {
   zoomresetSvg.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
       workspace.options.pathToMedia + Blockly.SPRITE.url);
 
+  zoomoutSvg.setAttribute('transform',
+      'translate(' + '-34' + ',' + '-68' + ')');
+  zoominSvg.setAttribute('transform',
+      'translate(' + '-68' + ',' + '-34' + ')');
+  zoomresetSvg.setAttribute('transform',
+      'translate(' + '0' + ',' + '8' + ')');
+
   // Attach event listeners.
   Blockly.bindEventWithChecks_(zoomresetSvg, 'mousedown', null, function(e) {
     workspace.markFocused();
@@ -230,14 +237,14 @@ Blockly.ZoomControls.prototype.position = function() {
     }
   } else {
     this.left_ = metrics.viewWidth + metrics.absoluteLeft -
-        this.WIDTH_ - this.MARGIN_SIDE_ - Blockly.Scrollbar.scrollbarThickness;
+        this.WIDTH_/* - this.MARGIN_SIDE_*/ - Blockly.Scrollbar.scrollbarThickness;
 
     if (metrics.toolboxPosition == Blockly.TOOLBOX_AT_RIGHT) {
       this.left_ -= metrics.flyoutWidth;
     }
   }
-  this.top_ = metrics.viewHeight + metrics.absoluteTop -
-      this.HEIGHT_ - this.bottom_;
+  this.top_ = /*metrics.viewHeight + */metrics.absoluteTop/* -
+      this.HEIGHT_ - this.bottom_*/;
   if (metrics.toolboxPosition == Blockly.TOOLBOX_AT_BOTTOM) {
     this.top_ -= metrics.flyoutHeight;
   }

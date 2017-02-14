@@ -114,8 +114,16 @@ Blockly.Css.setCursor = function(cursor) {
   for (var i = 0, toolbox; toolbox = toolboxen[i]; i++) {
     if (cursor == Blockly.Css.Cursor.DELETE) {
       toolbox.style.cursor = url;
+      var rows = toolboxen[i].getElementsByClassName('blocklyTreeLabel');
+      for (var i = 0, row; row = rows[i]; i++) {
+        row.style.cursor = url;
+      }
     } else {
       toolbox.style.cursor = '';
+      var rows = toolboxen[i].getElementsByClassName('blocklyTreeLabel');
+      for (var i = 0, row; row = rows[i]; i++) {
+        row.style.cursor = '';
+      }
     }
   }
   // Set cursor on the whole document, so that rapid movements
@@ -251,7 +259,7 @@ Blockly.Css.CONTENT = [
   '.blocklyText {',
     'cursor: default;',
     'fill: #fff;',
-    'font-family: sans-serif;',
+    // 'font-family: sans-serif;',
     'font-size: 11pt;',
   '}',
 
@@ -284,8 +292,9 @@ Blockly.Css.CONTENT = [
     'z-index: 20;',
   '}',
   '.blocklyFlyoutButton {',
-    'fill: #888;',
+    'fill: rgb(165, 51, 183);',
     'cursor: default;',
+    'opacity: 0.8;',
   '}',
 
   '.blocklyFlyoutButtonShadow {',
@@ -293,7 +302,8 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyFlyoutButton:hover {',
-    'fill: #aaa;',
+    'fill: rgb(165, 51, 183);',
+    'opacity: 1;',
   '}',
 
   '.blocklyFlyoutLabel {',
@@ -371,7 +381,7 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyMainBackground {',
-    'stroke-width: 1;',
+    'stroke-width: 0;',
     'stroke: #c6c6c6;',  /* Equates to #ddd due to border being off-pixel. */
   '}',
 
@@ -382,8 +392,8 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyFlyoutBackground {',
-    'fill: #ddd;',
-    'fill-opacity: .8;',
+    'fill: rgb(30, 36, 50);',
+    'fill-opacity: 1;',
   '}',
 
   '.blocklyScrollbarHorizontal, .blocklyScrollbarVertical {',
@@ -397,12 +407,12 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyScrollbarHandle {',
-    'fill: #ccc;',
+    'fill: rgb(60, 72, 100);',
   '}',
 
   '.blocklyScrollbarBackground:hover+.blocklyScrollbarHandle,',
   '.blocklyScrollbarHandle:hover {',
-    'fill: #bbb;',
+    'fill: #313B52;',
   '}',
 
   '.blocklyZoom>image {',
@@ -420,12 +430,12 @@ Blockly.Css.CONTENT = [
   /* Darken flyout scrollbars due to being on a grey background. */
   /* By contrast, workspace scrollbars are on a white background. */
   '.blocklyFlyout .blocklyScrollbarHandle {',
-    'fill: #bbb;',
+    'fill: rgb(60, 72, 100);',
   '}',
 
   '.blocklyFlyout .blocklyScrollbarBackground:hover+.blocklyScrollbarHandle,',
   '.blocklyFlyout .blocklyScrollbarHandle:hover {',
-    'fill: #aaa;',
+    'fill: #313B52;',
   '}',
 
   '.blocklyInvalidInput {',
@@ -456,7 +466,7 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyContextMenu {',
-    'border-radius: 4px;',
+    'border-radius: 10px;',
   '}',
 
   '.blocklyDropdownMenu {',
@@ -471,15 +481,16 @@ Blockly.Css.CONTENT = [
 
   /* Category tree in Toolbox. */
   '.blocklyToolboxDiv {',
-    'background-color: #ddd;',
+    'background-color: rgb(46, 56, 79);',
     'overflow-x: visible;',
     'overflow-y: auto;',
     'position: absolute;',
     'z-index: 70;', /* so blocks go under toolbox when dragging */
+    'border-right: solid rgb(30, 36, 50) 2px;',
   '}',
 
   '.blocklyTreeRoot {',
-    'padding: 4px 0;',
+    'padding: 0px 0;',
   '}',
 
   '.blocklyTreeRoot:focus {',
@@ -487,11 +498,12 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyTreeRow {',
-    'height: 22px;',
-    'line-height: 22px;',
-    'margin-bottom: 3px;',
-    'padding-right: 8px;',
-    'white-space: nowrap;',
+    'height: 63px;',
+    'width: 120px;',
+    'line-height: 63px;',
+    'margin-bottom: 0px;',
+    'padding-right: 0px;',
+    '-webkit-transition: transform 0.2s;',
   '}',
 
   '.blocklyHorizontalTree {',
@@ -509,13 +521,19 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyTreeRow:not(.blocklyTreeSelected):hover {',
-    'background-color: #e4e4e4;',
+    'transform: translate(-20px, 0px);',
+  '}',
+
+  '.blocklyTreeRowBell {',
+    'width: 120px;',
+    'height: 63px;',
+    'position: absolute;',
   '}',
 
   '.blocklyTreeSeparator {',
-    'border-bottom: solid #e5e5e5 1px;',
+    'border-bottom: solid rgb(57, 65, 90) 1px;',
     'height: 0;',
-    'margin: 5px 0;',
+    'margin: 0px 0;',
   '}',
 
   '.blocklyTreeSeparatorHorizontal {',
@@ -528,9 +546,9 @@ Blockly.Css.CONTENT = [
 
   '.blocklyTreeIcon {',
     'background-image: url(<<<PATH>>>/sprites.png);',
-    'height: 16px;',
+    'height: 0px;',
     'vertical-align: middle;',
-    'width: 16px;',
+    'width: 0px;',
   '}',
 
   '.blocklyTreeIconClosedLtr {',
@@ -566,7 +584,7 @@ Blockly.Css.CONTENT = [
     'cursor: default;',
     'font-family: sans-serif;',
     'font-size: 16px;',
-    'padding: 0 3px;',
+    'padding: 0 0px;',
     'vertical-align: middle;',
   '}',
 
@@ -640,10 +658,11 @@ Blockly.Css.CONTENT = [
    */
 
   '.blocklyWidgetDiv .goog-menu {',
-    'background: #fff;',
-    'border-color: #ccc #666 #666 #ccc;',
+    'background: #293247;',
+    'border-color: #526185;',
     'border-style: solid;',
-    'border-width: 1px;',
+    'border-width: 5px;',
+    'border-radius: 10px;',
     'cursor: default;',
     'font: normal 13px Arial, sans-serif;',
     'margin: 0;',
@@ -687,7 +706,7 @@ Blockly.Css.CONTENT = [
    */
   '.blocklyWidgetDiv .goog-menuitem {',
     'color: #000;',
-    'font: normal 13px Arial, sans-serif;',
+    // 'font: normal 13px Arial, sans-serif;',
     'list-style: none;',
     'margin: 0;',
      /* 28px on the left for icon or checkbox; 7em on the right for shortcut. */
@@ -718,8 +737,8 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyWidgetDiv .goog-menuitem-content {',
-    'color: #000;',
-    'font: normal 13px Arial, sans-serif;',
+    'color: #fff;',
+    // 'font: normal 13px Arial, sans-serif;',
   '}',
 
   /* State: disabled. */
@@ -737,14 +756,14 @@ Blockly.Css.CONTENT = [
   /* State: hover. */
   '.blocklyWidgetDiv .goog-menuitem-highlight,',
   '.blocklyWidgetDiv .goog-menuitem-hover {',
-    'background-color: #d6e9f8;',
+    'background-color: #536185;',
      /* Use an explicit top and bottom border so that the selection is visible',
       * in high contrast mode. */
-    'border-color: #d6e9f8;',
-    'border-style: dotted;',
-    'border-width: 1px 0;',
-    'padding-bottom: 3px;',
-    'padding-top: 3px;',
+    // 'border-color: #d6e9f8;',
+    // 'border-style: dotted;',
+    // 'border-width: 1px 0;',
+    // 'padding-bottom: 3px;',
+    // 'padding-top: 3px;',
   '}',
 
   /* State: selected/checked. */

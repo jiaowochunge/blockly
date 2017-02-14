@@ -711,6 +711,11 @@ Blockly.BlockSvg.prototype.onMouseUp_ = function(e) {
       goog.Timer.callOnce(trashcan.close, 100, trashcan);
     }
     Blockly.selected.dispose(false, true);
+    // make sure the trashcan added by bell on toolbox
+    // will be dismissed
+    if (Blockly.mainWorkspace && Blockly.mainWorkspace.extraTrashcan) {
+      Blockly.mainWorkspace.extraTrashcan.style.display = 'none';
+    }
   }
   if (Blockly.highlightedConnection_) {
     Blockly.highlightedConnection_.unhighlight();

@@ -1,0 +1,125 @@
+.bellActionBtn {
+  width: 65px;
+  height: 65px;
+  opacity: 0.4;
+}
+
+.bellActionBtn:hover {
+  opacity: 0.8;
+}
+
+.bellTopDrawerContainer {
+  z-index: 1399;
+  width: calc(100% - 120px - 240px - 60px);
+  height: 120px;
+  position: fixed;
+  top: -120px;
+  -webkit-transition: top .5s;
+  text-align: center;
+  background-color: rgb(62, 75, 104);
+  left: calc(120px + 60px);
+  border-right: solid rgb(30, 36, 50) 2px;
+  border-left: solid rgb(30, 36, 50) 2px;
+  border-bottom: solid rgb(30, 36, 50) 2px;
+  /* font color */
+  color: white;
+}
+.bellTopDrawerHandlerBg {
+  width: 129px;
+  height: 21px;
+  background: url('images/handler_bg.png');
+  margin-top: 0px;
+  display: inline-block;
+  text-align: center;
+}
+.bellTopDrawerHandler {
+  width: 40px;
+  height: 16px;
+  background: url('images/handler.png');
+  transform: rotate(180deg);
+  display: inline-block;
+  opacity: 0.8;
+}
+.bellTopDrawerDebugContainer {
+  display: flex;
+  height: 100%;
+}
+.bellTopDrawerDebugMasterControl {
+  width: 120px;
+  height: 100%;
+  border-right: solid rgb(30, 36, 50) 2px;
+}
+.bellTopDrawerDebugDriver {
+  flex: 1;
+  border-right: solid rgb(30, 36, 50) 2px;
+}
+.bellTopDrawerDebugInfrared {
+  flex: 1;
+  border-right: solid rgb(30, 36, 50) 2px;
+}
+.bellTopDrawerDebugColor {
+  flex: 1;
+}
+.bellTopDrawerDebugTitle {
+  background-color: rgb(82, 97, 133);
+  width: 100px;
+  margin-top: 8px;
+  border-right: solid rgb(30, 36, 50) 2px;
+  border-bottom: solid rgb(30, 36, 50) 2px;
+}
+.bellTopDrawerHorizontalScrollView {
+  width: 100%;
+  height: calc(100% - 24px);
+  text-align: start;
+  display: flex;
+  overflow-x: hidden;
+}
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(60, 72, 100, 0.4);
+  border-radius: 5px;
+  /*background-color: rgb(46, 56, 79);*/
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(60, 72, 100, 0.8);
+  background-color: rgb(60, 72, 100);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  text-align: center;
+  margin: 5px 8px;
+}
+
+.bellTopDrawerHorizontalScrollView::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.bellTopDrawerHorizontalScrollView::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(60, 72, 100, 0.4);
+  border-radius: 5px;
+  /*background-color: rgb(46, 56, 79);*/
+}
+
+.bellTopDrawerHorizontalScrollView::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(60, 72, 100, 0.8);
+  background-color: #526185;
+}
+.bellTopDrawerHorizontalScrollViewItem {
+  text-align: center;
+  margin: 5px 8px;
+}
+.bellTopDrawerHorizontalScrollViewItemLabel {
+  display: block;
+  width: 80px;
+}

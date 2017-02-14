@@ -328,6 +328,11 @@ Blockly.WorkspaceSvg.prototype.createDom = function(opt_backgroundClass) {
       {'class': 'blocklyWorkspace'}, null);
   if (opt_backgroundClass) {
     /** @type {SVGElement} */
+    var bg = Blockly.utils.createSvgElement('rect',
+        {'height': '100%', 'width': '100%'},
+        this.svgGroup_);
+    bg.style.fill = 'rgb(46, 56, 79)';
+
     this.svgBackground_ = Blockly.utils.createSvgElement('rect',
         {'height': '100%', 'width': '100%', 'class': opt_backgroundClass},
         this.svgGroup_);
@@ -402,6 +407,12 @@ Blockly.WorkspaceSvg.prototype.dispose = function() {
   if (this.trashcan) {
     this.trashcan.dispose();
     this.trashcan = null;
+  }
+  if (this.extraTrashcan) {
+    // this is just plain dom
+    // could not be disposed
+    // this.extraTrashcan.dispose();
+    this.extraTrashcan = null;
   }
   if (this.scrollbar) {
     this.scrollbar.dispose();
@@ -871,6 +882,8 @@ Blockly.WorkspaceSvg.prototype.recordDeleteAreas = function() {
   }
 };
 
+Blockly.WorkspaceSvg.prototype.isDraggingToolboxToDelete = false;
+Blockly.WorkspaceSvg.prototype.extraTrashcan = null;
 /**
  * Is the mouse event over a delete area (toolbox or non-closing flyout)?
  * Opens or closes the trashcan and sets the cursor as a side effect.
@@ -888,13 +901,46 @@ Blockly.WorkspaceSvg.prototype.isDeleteArea = function(e) {
     this.trashcan.setOpen_(false);
   }
   if (this.deleteAreaToolbox_) {
+    this.toggleTrashcanOnToolbox(true);
     if (this.deleteAreaToolbox_.contains(xy)) {
       Blockly.Css.setCursor(Blockly.Css.Cursor.DELETE);
       return true;
+    } else {
+      this.toggleTrashcanOnToolbox(false);
     }
   }
   Blockly.Css.setCursor(Blockly.Css.Cursor.CLOSED);
   return false;
+};
+
+Blockly.WorkspaceSvg.prototype.toggleTrashcanOnToolbox = function (show) {
+  if (show) {
+    if (!this.isDraggingToolboxToDelete) {
+      this.isDraggingToolboxToDelete = true;
+      if (!this.extraTrashcan) {
+        var img = goog.dom.createDom('img', {
+          'style': 'opacity: 0.8;' +
+                   'display: block;' +
+                   'position: absolute;' +
+                   'left: 50%; top: 50%;' +
+                   'margin-left: -41px; margin-top: -40.5px;' +
+                   'outline: none;' +
+                   'overflow: hidden;',
+          'src': 'images/trashcan.png',
+        });
+        this.toolbox_.HtmlDiv.appendChild(img);
+        this.extraTrashcan = img;
+      }
+      this.extraTrashcan.style.display = 'block';
+    }
+  } else {
+    if (this.isDraggingToolboxToDelete) {
+      this.isDraggingToolboxToDelete = false;
+      if (this.extraTrashcan) {
+        this.extraTrashcan.style.display = 'none';
+      }
+    }
+  }
 };
 
 /**
