@@ -355,10 +355,7 @@ Blockly.getMainWorkspace = function() {
  * @param {function()=} opt_callback The callback when the alert is dismissed.
  */
 Blockly.alert = function(message, opt_callback) {
-  window.alert(message);
-  if (opt_callback) {
-    opt_callback();
-  }
+  window.alert(message, opt_callback);
 };
 
 /**
@@ -368,7 +365,7 @@ Blockly.alert = function(message, opt_callback) {
  * @param {!function(boolean)} callback The callback for handling user response.
  */
 Blockly.confirm = function(message, callback) {
-  callback(window.confirm(message));
+  window.confirm(message, callback);
 };
 
 /**
@@ -381,7 +378,7 @@ Blockly.confirm = function(message, callback) {
  * @param {!function(string)} callback The callback for handling user response.
  */
 Blockly.prompt = function(message, defaultValue, callback) {
-  callback(window.prompt(message, defaultValue));
+  window.prompt(message, defaultValue, callback);
 };
 
 /**

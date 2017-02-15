@@ -64,12 +64,10 @@ Blockly.Lua['bell_logic_compare_gte'] = function(block) {
   return [code, Blockly.Lua.ORDER_RELATIONAL];
 };
 
-Blockly.Lua['bell_logic_operation_and'] =
-Blockly.Lua['bell_logic_operation_or'] = function(block) {
-  // Operations 'and', 'or'.
-  var operator = block.getFieldValue('OP');
-  var order = (operator == 'and') ? Blockly.Lua.ORDER_AND :
-      Blockly.Lua.ORDER_OR;
+Blockly.Lua['bell_logic_operation_and'] = function(block) {
+  // Operations 'and'.
+  var operator = 'and';
+  var order = Blockly.Lua.ORDER_AND;
   var argument0 = Blockly.Lua.valueToCode(block, 'A', order);
   var argument1 = Blockly.Lua.valueToCode(block, 'B', order);
   if (!argument0 && !argument1) {
@@ -78,7 +76,31 @@ Blockly.Lua['bell_logic_operation_or'] = function(block) {
     argument1 = 'false';
   } else {
     // Single missing arguments have no effect on the return value.
-    var defaultArgument = (operator == 'and') ? 'true' : 'false';
+    var defaultArgument = 'true';
+    if (!argument0) {
+      argument0 = defaultArgument;
+    }
+    if (!argument1) {
+      argument1 = defaultArgument;
+    }
+  }
+  var code = argument0 + ' ' + operator + ' ' + argument1;
+  return [code, order];
+};
+
+Blockly.Lua['bell_logic_operation_or'] = function(block) {
+  // Operations 'or'.
+  var operator = 'or';
+  var order = Blockly.Lua.ORDER_OR;
+  var argument0 = Blockly.Lua.valueToCode(block, 'A', order);
+  var argument1 = Blockly.Lua.valueToCode(block, 'B', order);
+  if (!argument0 && !argument1) {
+    // If there are no arguments, then the return value is false.
+    argument0 = 'false';
+    argument1 = 'false';
+  } else {
+    // Single missing arguments have no effect on the return value.
+    var defaultArgument = 'false';
     if (!argument0) {
       argument0 = defaultArgument;
     }

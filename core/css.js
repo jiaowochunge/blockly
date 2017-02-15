@@ -521,7 +521,6 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyTreeRow:not(.blocklyTreeSelected):hover {',
-    'transform: translate(-20px, 0px);',
   '}',
 
   '.blocklyTreeRowBell {',
