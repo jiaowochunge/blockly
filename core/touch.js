@@ -79,6 +79,8 @@ Blockly.longStart_ = function(e, uiObject) {
   Blockly.longStop_();
   Blockly.longPid_ = setTimeout(function() {
     e.button = 2;  // Simulate a right button click.
+    // a temporary fix for mobile long press event, after offical fix applied, we should revert this patch
+    Blockly.Touch.setClientFromTouch(e);
     uiObject.onMouseDown_(e);
   }, Blockly.LONGPRESS);
 };
@@ -108,7 +110,7 @@ Blockly.onMouseUp_ = function(e) {
   }
   Blockly.Touch.clearTouchIdentifier();
 
-  // TODO(#781): Check whether this needs to be called for all drag modes. 
+  // TODO(#781): Check whether this needs to be called for all drag modes.
   workspace.resetDragSurface();
   Blockly.Css.setCursor(Blockly.Css.Cursor.OPEN);
   workspace.dragMode_ = Blockly.DRAG_NONE;
