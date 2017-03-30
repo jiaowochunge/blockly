@@ -182,3 +182,8 @@ Blockly.Msg.BELL_MATH_RANDOM_INT_HELPURL = function() { return window.AppDir + '
 Blockly.Msg.BELL_MATH_ABS_TITLE = "绝对值 %1";
 Blockly.Msg.BELL_MATH_ABS_TOOLTIP = "返回绝对值";
 Blockly.Msg.BELL_MATH_ABS_HELPURL = function() { return window.AppDir + 'www' + '/guide/AbsoluteValue.html'; };
+// 新增触碰球，关节球相关
+Blockly.Msg.BELL_EXTRA_GET_TOUCH_TITLE = "获取触碰球状态";
+Blockly.Msg.BELL_EXTRA_GET_TOUCH_TOOLTIP = "读取指定触碰球的触碰状态.";
+Blockly.Msg.BELL_EXTRA_SET_HSERVO_TITLE = "设置水平关节球角度";
+Blockly.Msg.BELL_EXTRA_SET_HSERVO_TOOLTIP = "设置指定水平关节球的角度.";

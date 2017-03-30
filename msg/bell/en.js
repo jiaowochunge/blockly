@@ -182,3 +182,8 @@ Blockly.Msg.BELL_MATH_RANDOM_INT_HELPURL = function() { return window.AppDir + '
 Blockly.Msg.BELL_MATH_ABS_TITLE = "absolute value of %1";
 Blockly.Msg.BELL_MATH_ABS_TOOLTIP = "return absolute value";
 Blockly.Msg.BELL_MATH_ABS_HELPURL = function() { return window.AppDir + 'www' + '/guide/AbsoluteValue.html'; };
+// 新增触碰球，关节球相关
+Blockly.Msg.BELL_EXTRA_GET_TOUCH_TITLE = "get touch state of";
+Blockly.Msg.BELL_EXTRA_GET_TOUCH_TOOLTIP = "Get the specific touch module state which it be pressed or not.";
+Blockly.Msg.BELL_EXTRA_SET_HSERVO_TITLE = "set hservo angle";
+Blockly.Msg.BELL_EXTRA_SET_HSERVO_TOOLTIP = "Set the specific horizontal servo module angle.";
