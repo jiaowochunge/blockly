@@ -298,7 +298,8 @@ Blockly.Toolbox.prototype.generateBellTreeLabel = function (name) {
     'Logic',
     'Math',
     'Variables',
-    'Functions'
+    'Functions',
+    'Extras'
   ];
   var isBellLabel = false;
   // is this name from bell?
