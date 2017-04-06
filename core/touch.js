@@ -24,6 +24,10 @@
  */
 'use strict';
 
+/**
+ * @name Blockly.Touch
+ * @namespace
+ **/
 goog.provide('Blockly.Touch');
 
 goog.require('goog.events');
@@ -77,10 +81,15 @@ Blockly.longPid_ = 0;
  */
 Blockly.longStart_ = function(e, uiObject) {
   Blockly.longStop_();
+  // Punt on multitouch events.
+  if (e.changedTouches.length != 1) {
+    return;
+  }
   Blockly.longPid_ = setTimeout(function() {
     e.button = 2;  // Simulate a right button click.
-    // a temporary fix for mobile long press event, after offical fix applied, we should revert this patch
-    Blockly.Touch.setClientFromTouch(e);
+    // e was a touch event.  It needs to pretend to be a mouse event.
+    e.clientX = e.changedTouches[0].clientX;
+    e.clientY = e.changedTouches[0].clientY;
     uiObject.onMouseDown_(e);
   }, Blockly.LONGPRESS);
 };

@@ -120,7 +120,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
   },
   /**
    * Create XML to represent the argument inputs.
-   * @param {=boolean} opt_paramIds If true include the IDs of the parameter
+   * @param {boolean=} opt_paramIds If true include the IDs of the parameter
    *     quarks.  Used by Blockly.Procedures.mutateCallers for reconnection.
    * @return {!Element} XML storage element.
    * @this Blockly.Block
@@ -681,6 +681,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
   /**
    * Procedure calls cannot exist without the corresponding procedure
    * definition.  Enforce this link whenever an event is fired.
+   * @param {!Blockly.Events.Abstract} event Change event.
    * @this Blockly.Block
    */
   onchange: function(event) {
@@ -843,7 +844,7 @@ Blockly.Blocks['procedures_ifreturn'] = {
    * @param {!Blockly.Events.Abstract} e Change event.
    * @this Blockly.Block
    */
-  onchange: function(e) {
+  onchange: function(/* e */) {
     if (!this.workspace.isDragging || this.workspace.isDragging()) {
       return;  // Don't change state at the start of a drag.
     }

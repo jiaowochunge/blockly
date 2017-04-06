@@ -24,6 +24,10 @@
  */
 'use strict';
 
+/**
+ * @name Blockly.Css
+ * @namespace
+ */
 goog.provide('Blockly.Css');
 
 
@@ -396,10 +400,17 @@ Blockly.Css.CONTENT = [
     'fill-opacity: 1;',
   '}',
 
+  '.blocklyMainWorkspaceScrollbar {',
+    'z-index: 20;',
+  '}',
+
+  '.blocklyFlyoutScrollbar {',
+    'z-index: 30;',
+  '}',
+
   '.blocklyScrollbarHorizontal, .blocklyScrollbarVertical {',
     'position: absolute;',
     'outline: none;',
-    'z-index: 30;',
   '}',
 
   '.blocklyScrollbarBackground {',
@@ -463,6 +474,7 @@ Blockly.Css.CONTENT = [
     'stroke: #f00;',
     'stroke-width: 2;',
     'stroke-linecap: round;',
+    'pointer-events: none;',
   '}',
 
   '.blocklyContextMenu {',
