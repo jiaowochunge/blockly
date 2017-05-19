@@ -205,3 +205,15 @@ Blockly.Msg.BELL_MOTION_SET_VSERVO_ANGLE_HELPURL = ""; //TODO
 Blockly.Msg.BELL_MOTION_GET_VSERVO_ANGLE_TITLE = "get vservo angle of %1";
 Blockly.Msg.BELL_MOTION_GET_VSERVO_ANGLE_TOOLTIP = ""; //TODO
 Blockly.Msg.BELL_MOTION_GET_VSERVO_ANGLE_HELPURL = ""; //TODO
+//titan相关语句块
+Blockly.Msg.BELL_SET_TITAN_SERVO_DATA_TITLE = "set titan servo %1 %2 ms angle to %3 °"
+Blockly.Msg.BELL_SET_TITAN_SERVO_DATA_TOOLTIP = "";
+Blockly.Msg.BELL_SET_TITAN_SERVO_DATA_HELPURL = "";
+
+Blockly.Msg.BELL_GET_TITAN_SERVO_DATA_TITLE = "get titan servo %1 angle"
+Blockly.Msg.BELL_GET_TITAN_SERVO_DATA_TOOLTIP = "";
+Blockly.Msg.BELL_GET_TITAN_SERVO_DATA_HELPURL = "";
+
+Blockly.Msg.BELL_START_TITAN_SERVO_TITLE = "start titan servo %1 angle"
+Blockly.Msg.BELL_START_TITAN_SERVO_TOOLTIP = "";
+Blockly.Msg.BELL_START_TITAN_SERVO_HELPURL = "";
