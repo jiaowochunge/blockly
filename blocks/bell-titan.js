@@ -30,8 +30,8 @@ Blockly.Blocks['set_titan_servo_data'] = {
 						"type": "field_number",
 						"name": "angle",
 						"value": 0,
-						"min": -1800,
-						"max": 1800,
+						"min": -180,
+						"max": 180,
 						"precision": 0.1
 					},
 				],
