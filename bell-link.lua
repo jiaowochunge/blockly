@@ -181,6 +181,679 @@ local function r_wait_for_long_key(code)
     mg_yield()
   end
 end
+--titan apis start
+--common
+local function tt_r_Delay(de_time)
+	local quit_flag = 0
+	local startTime = Get_time_ms()
+    local nowtime = startTime
+    while nowtime - startTime < de_time
+    do
+   		quit_flag = System_yield()
+   		if quit_flag == 1 then
+   			return 1
+   		end
+        nowtime = Get_time_ms()
+    end
+    return 0
+end
+--01
+tt_1_globalTime=500
+tt_1_num1={-200,   0, -300, 300,    0,   50, -300, 300,    0,  50}
+tt_1_num2={-200,-200, -300, 300,    0,   50, -300, 300,    0,  50}
+tt_1_num3={-200, 200, -300, 300,    0,   50, -300, 300,    0,  50}
+tt_1_num4={-200,   0, -300, 300,    0,   50, -300, 300,    0,  50}
+tt_1_num5={   0,   0,    0,   0,    0,   0,    0,   0,    0,   0}
+tt_1_num6={   0,   0,    0, 210,    0,   0,    0,   0,    0, 210}
+tt_1_num7={   0,   0,  210,-210,    0,   0,    0,   0,  210,-210}
+tt_1_num8={   0,   0,  210,-210,    0, 210,    0, 210,  210,-210}
+tt_1_num9={   0,   0,    0,   0,    0, 210,    0, 210,    0,   0}
+tt_1_num10={   0,   0,    0,   0,  210,-210,  210,-210,    0,   0}
+tt_1_num11={   0,   0,    0, 210,  210,-210,  210,-210,    0, 210}
+tt_1_num12={   0,   0,    0,   0,    0,   0,    0,   0,    0,   0}
+function tt_1_Set_All_LED(color,mode)
+	Led_set_color(2,color)
+	Led_mode_switch(2,mode)
+end
+
+function tt_1_Stop_All_LED()
+	Led_off(2)
+end
+
+function tt_1_Init_Angle()
+	for i=1,10,1 do
+		Set_Titan_Servo_Data(i,tt_1_globalTime,0)
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(tt_1_globalTime)
+	--latetbl={0,0,0,0,0,0,0,0,0,0}
+end
+
+function tt_1_action(temptbl,datatime)
+	local globalTime=datatime
+	for i=1,10,1 do
+		--if temptbl[i]~=latetbl[i] then
+			Set_Titan_Servo_Data(i,globalTime,temptbl[i])
+		--end
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(globalTime)
+	--latetbl=temptbl
+end
+
+function tt_1_test(tempTime)
+	tt_1_action(tt_1_num1,tempTime)
+	tt_1_action(tt_1_num2,tempTime)
+	tt_1_action(tt_1_num3,tempTime)
+	tt_1_action(tt_1_num2,tempTime)
+	tt_1_action(tt_1_num3,tempTime)
+	tt_r_Delay(1000)
+	tt_1_action(tt_1_num4,tempTime)
+	tt_1_action(tt_1_num5,tempTime)
+	tt_r_Delay(1000)
+	tt_1_action(tt_1_num6,tempTime)
+	tt_1_action(tt_1_num7,tempTime)
+	tt_1_action(tt_1_num8,tempTime)
+	tt_1_action(tt_1_num9,tempTime)
+	tt_1_action(tt_1_num10,tempTime)
+	tt_1_action(tt_1_num11,tempTime)
+	tt_1_action(tt_1_num12,tempTime)
+end
+
+function tt_1_run()
+  do
+  	tt_1_Set_All_LED(1,3)
+  	tt_1_test(500)
+  	tt_1_test(500)
+  	tt_1_test(500)
+  	tt_1_Stop_All_LED()
+  	tt_1_Init_Angle()
+  end
+end
+--02
+tt_2_globalTime=500
+tt_2_num1={-200,   0,    0,-200,  280, 280,    0,-200,  280, 280}
+tt_2_num2={   0,   0,    0,   0,    0,   0,    0,   0,    0,   0}
+
+tt_2_xyz=210
+
+tt_2_num3={   0, 200,    0, tt_2_xyz,    0,   0,    0,   0,    0, tt_2_xyz}
+tt_2_num4={   0,   0,  tt_2_xyz,-tt_2_xyz,    0,   0,    0,   0,  tt_2_xyz,-tt_2_xyz}
+tt_2_num5={   0,-200,  tt_2_xyz,-tt_2_xyz,    0, tt_2_xyz,    0, tt_2_xyz,  tt_2_xyz,-tt_2_xyz}
+
+tt_2_num6={   0,   0,    0,   0,    0, tt_2_xyz,    0, tt_2_xyz,    0,   0}
+tt_2_num7={   0, 200,    0,   0,  tt_2_xyz,-tt_2_xyz,  tt_2_xyz,-tt_2_xyz,    0,   0}
+tt_2_num8={   0,-200,    0, tt_2_xyz,  tt_2_xyz,-tt_2_xyz,  tt_2_xyz,-tt_2_xyz,    0, tt_2_xyz}
+
+tt_2_num9={0,0,0,0,0,0,0,0,0,0}
+function tt_2_Set_All_LED(color,mode)
+	Led_set_color(2,color)
+	Led_mode_switch(2,mode)
+end
+
+function tt_2_Stop_All_LED()
+	Led_off(2)
+end
+
+function tt_2_Init_Angle()
+	for i=1,10,1 do
+		Set_Titan_Servo_Data(i,tt_2_globalTime,0)
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(tt_2_globalTime)
+end
+
+function tt_2_action(temptbl,datatime)
+	local globalTime=datatime
+	for i=1,10,1 do
+			Set_Titan_Servo_Data(i,globalTime,temptbl[i])
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(globalTime)
+end
+
+function tt_2_test()
+	tt_2_action(tt_2_num1,1000)
+	tt_r_Delay(2000)
+	tt_2_Set_All_LED(1,1)
+	tt_2_action(tt_2_num2,500)
+	tt_r_Delay(2000)
+	tt_2_action(tt_2_num3,1000)
+	tt_2_action(tt_2_num4,1000)
+	tt_2_action(tt_2_num5,1000)
+	tt_2_action(tt_2_num6,1000)
+	tt_2_action(tt_2_num7,1000)
+	tt_2_action(tt_2_num8,1000)
+	tt_2_action(tt_2_num9,1000)
+end
+
+function tt_2_run()
+  do
+  	tt_2_test()
+  	tt_2_test()
+  	tt_2_test()
+  	tt_2_Stop_All_LED()
+  	tt_2_Init_Angle()
+  end
+end
+
+--03
+tt_3_globalTime=500
+tt_3_num1={   0,   0, -350, 350,    0,   0, -350, 350,    0,   0}
+tt_3_num2={   0,   0, -350, 350,    0,   0, -350,-200,    0,-550}
+tt_3_num3={   0,   0, -350, 350,    0,   0, -350,-200, -600, 250}
+function tt_3_Set_All_LED(color,mode)
+	Led_set_color(2,color)
+	Led_mode_switch(2,mode)
+end
+
+function tt_3_Stop_All_LED()
+	Led_off(2)
+end
+
+function tt_3_Init_Angle()
+	for i=1,10,1 do
+		Set_Titan_Servo_Data(i,tt_3_globalTime,0)
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(tt_3_globalTime)
+	--latetbl={0,0,0,0,0,0,0,0,0,0}
+end
+
+function tt_3_action(temptbl,datatime)
+	local globalTime=datatime
+	for i=1,10,1 do
+		--if temptbl[i]~=latetbl[i] then
+			Set_Titan_Servo_Data(i,globalTime,temptbl[i])
+		--end
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(globalTime)
+	--latetbl=temptbl
+end
+
+function tt_3_test()
+	tt_3_action(tt_3_num1,500)
+	tt_r_Delay(500)
+	tt_3_action(tt_3_num2,500)
+	tt_r_Delay(500)
+	tt_3_Set_All_LED(1,2)
+	tt_3_action(tt_3_num3,500)
+	tt_r_Delay(3000)
+end
+
+function tt_3_run()
+  do
+  	tt_3_Set_All_LED(1,1)
+  	tt_3_test()
+  	tt_3_Stop_All_LED()
+  	tt_3_Init_Angle()
+  end
+end
+
+--04
+local tt_4_globalTime = 500
+local tt_4_num1 = {-100,   0, -300, 300, -100, 100, -300, 300, -100, 100}
+local tt_4_num2 = {   0,   0,    0,   0,    0,   0,    0,   0,    0,   0}
+function tt_4_Set_All_LED(color,mode)
+	Led_set_color(2,color)
+	Led_mode_switch(2,mode)
+end
+
+function tt_4_Stop_All_LED()
+	Led_off(2)
+end
+
+function tt_4_Init_Angle()
+	for i=1,10,1 do
+		Set_Titan_Servo_Data(i,tt_4_globalTime,0)
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(tt_4_globalTime)
+	--latetbl={0,0,0,0,0,0,0,0,0,0}
+end
+
+function tt_4_action(temptbl,datatime)
+	local globalTime=datatime
+	for i=1,10,1 do
+		--if temptbl[i]~=latetbl[i] then
+			Set_Titan_Servo_Data(i,globalTime,temptbl[i])
+		--end
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(globalTime)
+	--latetbl=temptbl
+end
+
+function tt_4_test()
+	tt_4_Set_All_LED(1,3)
+	tt_4_action(tt_4_num1,500)
+	tt_r_Delay(200)
+	tt_4_action(tt_4_num2,80)
+	tt_4_action(tt_4_num1,200)
+	tt_4_action(tt_4_num2,80)
+	tt_4_action(tt_4_num1,200)
+	tt_4_action(tt_4_num2,80)
+	tt_4_action(tt_4_num1,200)
+	tt_4_action(tt_4_num2,80)
+	tt_4_action(tt_4_num1,200)
+end
+
+function tt_4_run()
+  do
+  	tt_4_test()
+  	tt_4_Stop_All_LED()
+  	tt_4_Init_Angle()
+  end
+end
+--05
+tt_5_globalTime=500
+tt_5_num1={-300,   0,    0,   0,    0,   0,    0,   0,    0,   0}
+tt_5_num2={-300, 100,  280, 340,  280, 280,  280, 340,  280, 280}
+tt_5_num3={-300,-100,  280, 340,  280, 280,  280, 340,  280, 280}
+tt_5_num4={-300,   0,  280, 340,  280, 280,  280, 340,  280, 280}
+
+tt_5_xyz=210
+
+tt_5_act1={   0,   0,  tt_5_xyz,-tt_5_xyz,    0, tt_5_xyz,    0, tt_5_xyz,  tt_5_xyz,-tt_5_xyz}
+tt_5_act2={   0,   0,  tt_5_xyz,-tt_5_xyz,    0,   0,    0,   0,  tt_5_xyz,-tt_5_xyz}
+tt_5_act3={   0,   0,    0, tt_5_xyz,    0,   0,    0,   0,    0, tt_5_xyz}
+tt_5_act4={   0,   0,    0, tt_5_xyz,  tt_5_xyz,-tt_5_xyz,  tt_5_xyz,-tt_5_xyz,    0, tt_5_xyz}
+tt_5_act5={   0,   0,    0,   0,  tt_5_xyz,-tt_5_xyz,  tt_5_xyz,-tt_5_xyz,    0,   0}
+tt_5_act6={   0,   0,    0,   0,    0, tt_5_xyz,    0, tt_5_xyz,    0,   0}
+function tt_5_Set_All_LED(color,mode)
+	Led_set_color(2,color)
+	Led_mode_switch(2,mode)
+end
+
+function tt_5_Stop_All_LED()
+	Led_off(2)
+end
+
+function tt_5_Init_Angle()
+	for i=1,10,1 do
+		Set_Titan_Servo_Data(i,tt_5_globalTime,0)
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(tt_5_globalTime)
+end
+
+function tt_5_action(temptbl,datatime)
+	local globalTime=datatime
+	for i=1,10,1 do
+		--if temptbl[i]~=latetbl[i] then
+			Set_Titan_Servo_Data(i,globalTime,temptbl[i])
+		--end
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(globalTime)
+	--latetbl=temptbl
+end
+
+function tt_5_houtui()
+	tt_5_action(tt_5_act1,800)
+	tt_5_action(tt_5_act2,800)
+	tt_5_action(tt_5_act3,800)
+	tt_5_action(tt_5_act4,800)
+	tt_5_action(tt_5_act5,800)
+	tt_5_action(tt_5_act6,800)
+end
+
+function tt_5_test()
+	tt_5_action(tt_5_num1,500)
+	tt_r_Delay(500)
+	tt_5_action(tt_5_num2,1000)
+	tt_r_Delay(500)
+	tt_5_action(tt_5_num3,500)
+	tt_r_Delay(500)
+	tt_5_action(tt_5_num4,500)
+	tt_r_Delay(1500)
+end
+
+function tt_5_run()
+  do
+  	tt_5_Set_All_LED(1,1)
+  	tt_r_Delay(2000)
+  	tt_5_houtui()
+  	tt_5_Set_All_LED(1,2)
+  	tt_5_test()
+  	tt_5_Stop_All_LED()
+  	tt_5_Init_Angle()
+  end
+end
+--06
+tt_6_globalTime=500
+tt_6_xyz=210
+tt_6_num1={   0,   0, -tt_6_xyz, tt_6_xyz, -tt_6_xyz, tt_6_xyz,    0,   0,    0,   0}
+tt_6_num2={   0,   0,    0,   0,    0,   0, -tt_6_xyz, tt_6_xyz, -tt_6_xyz, tt_6_xyz}
+tt_6_num3={   0,   0, -tt_6_xyz, tt_6_xyz, -tt_6_xyz, tt_6_xyz,    0,   0,    0,   0}
+tt_6_num4={   0,   0,    0,   0,    0,   0, -tt_6_xyz, tt_6_xyz, -tt_6_xyz, tt_6_xyz}
+tt_6_num5={   0,   0, -tt_6_xyz, tt_6_xyz, -tt_6_xyz, tt_6_xyz,    0,   0,    0,   0}
+tt_6_num6={   0,   0,    0,   0,    0,   0, -tt_6_xyz, tt_6_xyz, -tt_6_xyz, tt_6_xyz}
+tt_6_num7={   0,   0, -tt_6_xyz, tt_6_xyz, -tt_6_xyz, tt_6_xyz,    0,   0,    0,   0}
+tt_6_num8={   0,   0,    0,   0,    0,   0, -tt_6_xyz, tt_6_xyz, -tt_6_xyz, tt_6_xyz}
+function tt_6_Set_All_LED(color,mode)
+	Led_set_color(2,color)
+	Led_mode_switch(2,mode)
+end
+
+function tt_6_Stop_All_LED()
+	Led_off(2)
+end
+
+function tt_6_Init_Angle()
+	for i=1,10,1 do
+		Set_Titan_Servo_Data(i,tt_6_globalTime,0)
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(tt_6_globalTime)
+	--latetbl={0,0,0,0,0,0,0,0,0,0}
+end
+
+function tt_6_action(temptbl,datatime)
+	local globalTime=datatime
+	for i=1,10,1 do
+		--if temptbl[i]~=latetbl[i] then
+			Set_Titan_Servo_Data(i,globalTime,temptbl[i])
+		--end
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(globalTime)
+	--latetbl=temptbl
+end
+
+function tt_6_test()
+	tempTime=100
+	tt_6_action(tt_6_num1,tempTime)
+	tt_6_action(tt_6_num2,tempTime)
+	tt_6_action(tt_6_num1,tempTime)
+	tt_6_action(tt_6_num2,tempTime)
+	tt_6_action(tt_6_num1,tempTime)
+	tt_6_action(tt_6_num2,tempTime)
+end
+
+function tt_6_run()
+  do
+  	tt_6_Set_All_LED(1,1)
+  	tt_6_test()
+  	tt_6_Stop_All_LED()
+  	tt_6_Init_Angle()
+  end
+end
+--07
+tt_7_globalTime=500
+tt_7_num0={   0,   0,    0,   0,    0,   0,    0,   0,    0,   0}
+
+tt_7_squat={   0,   0,    0,-200,  250, 280,    0,-200,  250, 280}	--����
+
+
+tt_7_xyz=200
+tt_7_abc=90
+
+tt_7_round1={   0,   0,    0, tt_7_abc,    0,   0,    0,   0,    0, tt_7_xyz}	--����
+tt_7_round2={   0,   0,  tt_7_abc,-tt_7_abc,    0,   0,    0,   0,  tt_7_xyz,-tt_7_xyz}	--����
+tt_7_round3={   0,   0,  tt_7_abc,-tt_7_abc,    0, tt_7_abc,    0, tt_7_xyz,  tt_7_xyz,-tt_7_xyz}	--����
+tt_7_round4={   0,   0,    0,   0,    0, tt_7_abc,    0, tt_7_xyz,    0,   0}	--����
+tt_7_round5={   0,   0,    0,   0,  tt_7_abc,-tt_7_abc,  tt_7_xyz,-tt_7_xyz,    0,   0}	--����
+tt_7_round6={   0,   0,    0, tt_7_abc,  tt_7_abc,-tt_7_abc,  tt_7_xyz,-tt_7_xyz,    0, tt_7_xyz}	--����
+function tt_7_Set_All_LED(color,mode)
+	Led_set_color(2,color)
+	Led_mode_switch(2,mode)
+end
+
+function tt_7_Stop_All_LED()
+	Led_off(2)
+end
+
+function tt_7_Init_Angle()
+	for i=1,10,1 do
+		Set_Titan_Servo_Data(i,tt_7_globalTime,0)
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(tt_7_globalTime)
+	--latetbl={0,0,0,0,0,0,0,0,0,0}
+end
+
+function tt_7_action(temptbl,datatime)
+	local globalTime=datatime
+	for i=1,10,1 do
+		--if temptbl[i]~=latetbl[i] then
+			Set_Titan_Servo_Data(i,globalTime,temptbl[i])
+		--end
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(globalTime)
+	--latetbl=temptbl
+end
+
+
+function tt_7_test()
+	tempTime=200
+	tt_7_action(tt_7_round1,tempTime)
+	tt_7_action(tt_7_round2,tempTime)
+	tt_7_action(tt_7_round3,tempTime)
+	tt_7_action(tt_7_round4,tempTime)
+	tt_7_action(tt_7_round5,tempTime)
+	tt_7_action(tt_7_round6,tempTime)
+end
+
+function tt_7_run()
+  do
+  	tt_7_Set_All_LED(1,1)
+  	tt_7_action(tt_7_squat,500)
+  	tt_r_Delay(1500)
+  	tt_7_action(tt_7_num0,500)
+  	tt_r_Delay(1000)
+  	tt_7_test()
+  	tt_7_test()
+  	tt_7_test()
+  	tt_7_Set_All_LED()
+  	tt_7_Init_Angle()
+  end
+end
+--08
+tt_8_globalTime=500
+--			ͷ     ��ǰ��		����     ��ǰ��      �Һ���
+tt_8_num0={   0,   0,    0,-200,  280, 280,    0,-200,  280, 280}	--������
+
+tt_8_num1={   0,   0,  150, 200,  280, 280,    0,-200,  280, 280}	--̧����ǰצ
+tt_8_num2={   0,   0,  220, 350,  280, 280,    0,-200,  280, 280}	--����������
+tt_8_num3={   0,   0,    0,-200,  280, 280,  150, 200,  280, 280}	--�������ҿ�
+tt_8_num4={   0,   0,    0,-200,  280, 280,  220, 350,  280, 280}	--������ǰ��
+function tt_8_Set_All_LED(color,mode)
+	Led_set_color(2,color)
+	Led_mode_switch(2,mode)
+end
+
+function tt_8_Stop_All_LED()
+	Led_off(2)
+end
+
+function tt_8_Init_Angle()
+	for i=1,10,1 do
+		Set_Titan_Servo_Data(i,tt_8_globalTime,0)
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(tt_8_globalTime)
+	--latetbl={0,0,0,0,0,0,0,0,0,0}
+end
+
+function tt_8_action(temptbl,datatime)
+	local globalTime=datatime
+	for i=1,10,1 do
+		--if temptbl[i]~=latetbl[i] then
+			Set_Titan_Servo_Data(i,globalTime,temptbl[i])
+		--end
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(globalTime)
+	--latetbl=temptbl
+end
+
+
+function tt_8_test1()
+	--����
+	tt_8_action(tt_8_num0,500)
+	tt_r_Delay(500)
+
+	--̧����ǰצ
+	tt_8_action(tt_8_num1,500)
+	--��ǰצ��ǰ������
+	tt_8_action(tt_8_num2,500)
+	tt_8_action(tt_8_num1,500)
+	tt_8_action(tt_8_num2,500)
+	tt_8_action(tt_8_num1,500)
+	tt_r_Delay(500)
+end
+
+function tt_8_test2()
+	--����
+	tt_8_action(tt_8_num0,500)
+	tt_r_Delay(500)
+
+	--̧����ǰצ
+	tt_8_action(tt_8_num3,500)
+	tt_r_Delay(500)
+	--��ǰצ��ǰ������
+	tt_8_action(tt_8_num4,500)
+	tt_8_action(tt_8_num3,500)
+	tt_8_action(tt_8_num4,500)
+	tt_8_action(tt_8_num3,500)
+	tt_r_Delay(500)
+end
+
+function tt_8_run()
+  do
+  	--��λ���ó�ʼ��
+  	tt_8_Set_All_LED(1,1)
+  	tt_8_test1()
+  	tt_8_test2()
+  	--����
+  	tt_8_action(tt_8_num0,500)
+  	tt_r_Delay(500)
+  	tt_8_Stop_All_LED()
+  	tt_8_Init_Angle()
+  end
+end
+--09
+tt_9_globalTime=500
+--			ͷ     ��ǰ��		������     ��ǰ��      �Һ���
+tt_9_num1={   0,   0, -450,-700, -450,-700,    0,   0,    0,   0}	--�෭
+tt_9_num2={   0,   0,    0,   0,    0,   0,    0,   0,    0,   0}	--�ظ�����
+tt_9_num3={   0,   0,  110, 140, -150,-100, -150,-100,  140, 140}	--����1
+tt_9_num4={   0,   0, -150,-100,  130, 110,   90, 140, -150,-100}	--����2
+function tt_9_Set_All_LED(color,mode)
+	Led_set_color(2,color)
+	Led_mode_switch(2,mode)
+end
+
+function tt_9_Stop_All_LED()
+	Led_off(2)
+end
+
+function tt_9_Init_Angle()
+	for i=1,10,1 do
+		Set_Titan_Servo_Data(i,tt_9_globalTime,0)
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(tt_9_globalTime)
+	--latetbl={0,0,0,0,0,0,0,0,0,0}
+end
+
+function tt_9_action(temptbl,datatime)
+	local globalTime=datatime
+	for i=1,10,1 do
+		--if temptbl[i]~=latetbl[i] then
+			Set_Titan_Servo_Data(i,globalTime,temptbl[i])
+		--end
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(globalTime)
+	--latetbl=temptbl
+end
+
+function tt_9_test()
+	tt_9_action(tt_9_num1,500)
+	tt_r_Delay(500)
+	tt_9_Set_All_LED(1,3)
+	tt_9_action(tt_9_num2,500)
+	tt_9_action(tt_9_num3,100)
+	tt_9_action(tt_9_num4,100)
+	tt_9_action(tt_9_num3,100)
+	tt_9_action(tt_9_num4,100)
+end
+
+function tt_9_run()
+  do
+  	--��λ���ó�ʼ��
+  	tt_9_Set_All_LED(1,1)
+  	tt_9_test()
+  	tt_9_Stop_All_LED()
+  	tt_9_Init_Angle()
+  end
+end
+--10
+tt_10_globalTime=500
+tt_10_num1={   0,   0,    0, 200,    0,   0,    0,   0,    0, 200}
+tt_10_num2={   0,   0,  200,-200,    0,   0,    0,   0,  200,-200}
+tt_10_num3={   0,   0,  200,-200,    0, 200,    0, 200,  200,-200}
+
+tt_10_num4={   0,   0,    0,   0,    0, 200,    0, 200,    0,   0}
+tt_10_num5={   0,   0,    0,   0,  200,-200,  200,-200,    0,   0}
+tt_10_num6={   0,   0,    0, 200,  200,-200,  200,-200,    0, 200}
+function tt_10_Set_All_LED(color,mode)
+	Led_set_color(2,color)
+	Led_mode_switch(2,mode)
+end
+
+function tt_10_Stop_All_LED()
+	Led_off(2)
+end
+
+function tt_10_Init_Angle()
+	for i=1,10,1 do
+		Set_Titan_Servo_Data(i,tt_10_globalTime,0)
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(tt_10_globalTime)
+	--latetbl={0,0,0,0,0,0,0,0,0,0}
+end
+
+function tt_10_action(temptbl,datatime)
+	local globalTime=datatime
+	for i=1,10,1 do
+		--if temptbl[i]~=latetbl[i] then
+			Set_Titan_Servo_Data(i,globalTime,temptbl[i])
+		--end
+	end
+	Start_Titan_Servo()
+	tt_r_Delay(globalTime)
+	--latetbl=temptbl
+end
+
+
+function tt_10_test()
+	temptime=200
+	tt_10_action(tt_10_num1,temptime)
+	tt_10_action(tt_10_num2,temptime)
+	tt_10_action(tt_10_num3,temptime)
+	tt_10_action(tt_10_num4,temptime)
+	tt_10_action(tt_10_num5,temptime)
+	tt_10_action(tt_10_num6,temptime)
+end
+
+
+function tt_10_run()
+  do
+  	tt_10_Set_All_LED(1,1)
+  	tt_10_test()
+  	tt_10_test()
+  	tt_10_test()
+  	tt_10_Stop_All_LED()
+  	tt_10_Init_Angle()
+  end
+end
+--titan apis end
 
 -- link point start
 
